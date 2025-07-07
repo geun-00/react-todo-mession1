@@ -16,9 +16,9 @@ export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>(() => {
     // 앱 최초 로딩 시 localStorage 불러오기
     const defaultTodos: Todo[] = [
-      { id: 3, text: "공부", checked: true, createdAt: new Date() },
-      { id: 2, text: "코딩", checked: false, createdAt: new Date() },
       { id: 1, text: "운동", checked: false, createdAt: new Date() },
+      { id: 2, text: "코딩", checked: false, createdAt: new Date() },
+      { id: 3, text: "공부", checked: true, createdAt: new Date() },
     ];
 
     const storedTodos = getItem<storedTodo[]>("todos", [] as storedTodo[]);
@@ -48,7 +48,7 @@ export function useTodos() {
       createdAt: new Date(),
     };
 
-    setTodos([todo, ...todos]);
+    setTodos([...todos, todo]);
     lastId.current++;
   };
 

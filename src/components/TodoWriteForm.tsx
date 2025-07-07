@@ -1,9 +1,6 @@
 import { FormEvent } from "react";
-import { useTodos } from "../hooks/useTodos";
 
-function TodoWriteForm() {
-  const { addTodo } = useTodos();
-
+function TodoWriteForm({ addTodo }) {
   const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
