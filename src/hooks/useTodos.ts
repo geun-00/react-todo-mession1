@@ -56,6 +56,13 @@ export function useTodos() {
   const removeTodo = (selectedId: number) => {
     const filterTodos = todos.filter((todo) => todo.id !== selectedId);
     setTodos(filterTodos);
+
+    // 남은 todos 중 가장 큰 id + 1로 lastId 갱신
+    const maxId =
+      filterTodos.length > 0
+        ? Math.max(...filterTodos.map((t) => t.id))
+        : 0;
+    lastId.current = maxId + 1;
   };
 
   //할일 체크 토글
