@@ -80,5 +80,13 @@ export function useTodos() {
     setTodos(updateTodos);
   };
 
-  return { todos, addTodo, removeTodo, toggleTodo };
+  //할일 텍스트 수정
+  const editTodo = (selectedId: number, newText: string) => {
+    const updateTodos = todos.map((todo) =>
+      todo.id === selectedId ? { ...todo, text: newText } : todo
+    );
+    setTodos(updateTodos);
+  };
+
+  return { todos, addTodo, removeTodo, toggleTodo, editTodo };
 }

@@ -4,16 +4,22 @@ import TodoWriteForm from "./components/TodoWriteForm";
 import Header from "./components/Header";
 
 function App() {
-  const { todos, addTodo, removeTodo, toggleTodo } = useTodos();
+  const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodos();
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50 py-10">
       <Header />
-      <div className="mb-12">
+      <div className="max-w-xl mx-auto">
         <TodoWriteForm addTodo={addTodo} />
+        <div className="h-12" />
+        <TodoList
+          todos={todos}
+          removeTodo={removeTodo}
+          toggleTodo={toggleTodo}
+          editTodo={editTodo}
+        />
       </div>
-      <TodoList todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
-    </>
+    </div>
   );
 }
 

@@ -5,9 +5,10 @@ interface TodoListProps {
   todos: Todo[];
   removeTodo: (id: number) => void;
   toggleTodo: (id: number) => void;
+  editTodo: (id: number, text: string) => void;
 }
 
-function TodoList({ todos, removeTodo, toggleTodo }: TodoListProps) {
+function TodoList({ todos, removeTodo, toggleTodo, editTodo }: TodoListProps) {
   return (
     <div className="max-w-xl mx-auto mt-6 bg-white rounded-lg shadow overflow-hidden">
       <table className="w-full text-center border border-gray-300 border-collapse">
@@ -18,6 +19,7 @@ function TodoList({ todos, removeTodo, toggleTodo }: TodoListProps) {
             <th className="py-2 border border-gray-300">등록일</th>
             <th className="py-2 border border-gray-300">완료</th>
             <th className="py-2 border border-gray-300">삭제</th>
+            <th className="py-2 border border-gray-300">수정</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +29,7 @@ function TodoList({ todos, removeTodo, toggleTodo }: TodoListProps) {
               todo={todo}
               removeTodo={removeTodo}
               toggleTodo={toggleTodo}
+              editTodo={editTodo}
             />
           ))}
         </tbody>
