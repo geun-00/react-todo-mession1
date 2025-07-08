@@ -2,14 +2,14 @@ import { format } from "date-fns";
 
 function TodoItem({ todo, removeTodo, toggleTodo }) {
   return (
-    <tr className="border-b hover:bg-gray-50 transition">
+    <tr
+      className={
+        "border-b hover:bg-gray-50 transition" +
+        (todo.checked ? " line-through text-gray-400" : " text-gray-800")
+      }
+    >
       <td className="py-2 border border-gray-300">{todo.id}</td>
-      <td
-        className={
-          "py-2 text-left px-2 border border-gray-300" +
-          (todo.checked ? " line-through text-gray-400" : " text-gray-800")
-        }
-      >
+      <td className="py-2 text-left px-2 border border-gray-300">
         {todo.text}
       </td>
       <td className="py-2 border border-gray-300">
