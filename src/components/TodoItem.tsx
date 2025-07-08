@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 function TodoItem({ todo, removeTodo, toggleTodo }) {
   return (
     <li>
@@ -6,7 +8,7 @@ function TodoItem({ todo, removeTodo, toggleTodo }) {
         onChange={() => toggleTodo(todo.id)}
         checked={todo.checked}
       />
-      {todo.id}. {todo.text}
+      {todo.id}. {todo.text} / {format(todo.createdAt, "yyyy.MM.dd")}{" "}
       <button onClick={() => removeTodo(todo.id)}>X</button>
     </li>
   );
