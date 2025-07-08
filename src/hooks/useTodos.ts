@@ -54,10 +54,17 @@ export function useTodos() {
 
   //할일 삭제
   const removeTodo = (selectedId: number) => {
-    const filterTodos = todos.filter((todo) => todo.id !== selectedId);
+    // 1. 해당 id를 가진 할 일 삭제
+    let filterTodos = todos.filter((todo) => todo.id !== selectedId);
+
+    // 2. 삭제된 id보다 큰 id를 가진 할 일들의 id를 1씩 감소
+    filterTodos = filterTodos.map((todo) =>
+      todo.id > selectedId ? { ...todo, id: todo.id - 1 } : todo
+    );
+
     setTodos(filterTodos);
 
-    // 남은 todos 중 가장 큰 id + 1로 lastId 갱신
+    // lastId도 갱신
     const maxId =
       filterTodos.length > 0
         ? Math.max(...filterTodos.map((t) => t.id))

@@ -9,16 +9,29 @@ interface TodoListProps {
 
 function TodoList({ todos, removeTodo, toggleTodo }: TodoListProps) {
   return (
-    <ul>
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          removeTodo={removeTodo}
-          toggleTodo={toggleTodo}
-        />
-      ))}
-    </ul>
+    <div className="max-w-xl mx-auto mt-6 bg-white rounded-lg shadow overflow-hidden">
+      <table className="w-full text-center border border-gray-300 border-collapse">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="py-2 border border-gray-300">No.</th>
+            <th className="py-2 border border-gray-300">내용</th>
+            <th className="py-2 border border-gray-300">등록일</th>
+            <th className="py-2 border border-gray-300">완료</th>
+            <th className="py-2 border border-gray-300">삭제</th>
+          </tr>
+        </thead>
+        <tbody>
+          {todos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              removeTodo={removeTodo}
+              toggleTodo={toggleTodo}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
