@@ -1,5 +1,5 @@
-import { Todo } from "../hooks/useTodos";
 import TodoItem from "./TodoItem";
+import {Todo} from "../types/todo";
 
 interface TodoListProps {
   todos: Todo[];
