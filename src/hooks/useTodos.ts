@@ -1,27 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { getItem, setItem } from "../util/storage";
-
-export interface Todo {
-  id: number;
-  text: string;
-  checked: boolean;
-  createdAt: Date;
-}
-
-type storedTodo = Omit<Todo, "createdAt"> & { createdAt: string };
+import {defaultTodos, StoredTodo, Todo} from "../types/todo";
 
 export function useTodos() {
-  const lastId = useRef<number>(4);
-
   const [todos, setTodos] = useState<Todo[]>(() => {
-    // 앱 최초 로딩 시 localStorage 불러오기
-    const defaultTodos: Todo[] = [
-      { id: 1, text: "운동", checked: false, createdAt: new Date() },
-      { id: 2, text: "코딩", checked: false, createdAt: new Date() },
-      { id: 3, text: "공부", checked: true, createdAt: new Date() },
-    ];
-
-    const storedTodos = getItem<storedTodo[]>("todos", [] as storedTodo[]);
+    const storedTodos = getItem<StoredTodo[]>("todos", [] as StoredTodo[]);
 
     // 가져온 값이 있으면 Date 타입 복원
     if (storedTodos.length > 0) {
@@ -39,7 +22,9 @@ export function useTodos() {
     setItem("todos", todos);
   }, [todos]);
 
-  //할일 추가
+  const lastId = useRef<number>(todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) + 1 : 1);
+
+    //할일 추가
   const addTodo = (text: string) => {
     const todo = {
       id: lastId.current,
