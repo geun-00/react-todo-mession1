@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { getItem, setItem } from "../util/storage";
-import {defaultTodos, StoredTodo, Todo} from "../types/todo";
+import {defaultTodos, Todo} from "../types/todo";
+import {getCurrentISOString} from "../util/DateManager";
 
 export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>(() => {
-    const storedTodos = getItem<StoredTodo[]>("todos", [] as StoredTodo[]);
 
-    // 가져온 값이 있으면 Date 타입 복원
-    if (storedTodos.length > 0) {
-      return storedTodos.map((todo) => ({
-        ...todo,
-        createdAt: new Date(todo.createdAt),
-      }));
-    }
+    const storedTodos = getItem<Todo[]>("todos", [] as Todo[]);
 
-    return defaultTodos;
+      // localStorage에 저장된 데이터가 있으면 그대로 사용
+      if (storedTodos.length > 0) {
+          return storedTodos;
+      }
+
+      // 없으면 기본값 사용
+      return defaultTodos;
+
   });
 
   // todos 변경 시 localStorage 자동 저장
@@ -30,7 +31,7 @@ export function useTodos() {
       id: lastId.current,
       text,
       checked: false,
-      createdAt: new Date(),
+      createdAt: getCurrentISOString(),
     };
 
     setTodos([...todos, todo]);

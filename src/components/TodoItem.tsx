@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { format } from "date-fns";
+import {formatDate} from "../util/DateManager";
 
 function TodoItem({ todo, removeTodo, toggleTodo, editTodo }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -55,7 +55,7 @@ function TodoItem({ todo, removeTodo, toggleTodo, editTodo }) {
         )}
       </td>
       <td className="py-2 border border-gray-300">
-        {format(todo.createdAt, "yyyy.MM.dd")}
+        {formatDate(todo.createdAt)}
       </td>
       <td className="py-2 border border-gray-300">
         <input
