@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {formatDate} from "../util/DateManager";
+import {createKeyboardHandler} from "../util/keyboard";
 
 function TodoItem({ todo, removeTodo, toggleTodo, editTodo }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -18,7 +19,17 @@ function TodoItem({ todo, removeTodo, toggleTodo, editTodo }) {
     }
   };
 
-  return (
+    const handleInputKeyboard = createKeyboardHandler({
+        onEscape: () => setIsEditing(false),
+        onEnter: () => {
+            if (editText.trim() !== "") {
+                editTodo(todo.id, editText.trim());
+                setIsEditing(false);
+            }
+        }
+    });
+
+    return (
     <tr className={"border-b hover:bg-gray-50 transition"}>
       <td className="py-2 border border-gray-300">{todo.id}</td>
       <td className="py-2 text-left px-2 border border-gray-300">
@@ -33,7 +44,7 @@ function TodoItem({ todo, removeTodo, toggleTodo, editTodo }) {
                 // onBlur에서 저장하지 않고, 단순히 편집모드만 종료
                 setIsEditing(false);
               }}
-              onKeyDown={e => { if (e.key === 'Escape') setIsEditing(false); }}
+              onKeyDown={handleInputKeyboard}
             />
             <button
               type="submit"
